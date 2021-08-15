@@ -1,4 +1,5 @@
 import sys
+import time
 
 printlogs = open("console.log", "w") # Where do you want console prints to be logged
 errorlogs = open("error.log", "w") # Where do you want error prints to be logged | If you want the same file set errorlogs = printlogs
