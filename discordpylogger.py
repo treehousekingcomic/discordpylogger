@@ -22,9 +22,12 @@ class Logger(object):
         self.log.flush()
 
         if self.webhook and str(message) != "\n":
-          sleep(1)
-          webhook = DiscordWebhook(url=self.webhook_url, content=str(message))
-          webhook.execute()
+            message = str(message)
+            content = [message[i:i+2000] for i in range(0, len(message), 2000)]
+            for msg in content:
+                webhook = DiscordWebhook(url=self.webhook_url, content=msg)
+                webhook.execute()
+                time.sleep(1)
 
     def flush(self):
         self.terminal.flush()
@@ -53,11 +56,12 @@ class ErrorLogger(object):
         self.log.flush()
 
         if self.webhook and str(message) != "\n":
-          sleep(1)
-          now = datetime.datetime.now()
-          message = f"**Error in Console** \n```py\n{message}```"
-          webhook = DiscordWebhook(url=self.webhook_url, content=str(message))
-          webhook.execute()
+            message = str(message)
+            content = [message[i:i+2000] for i in range(0, len(message), 2000)]
+            for msg in content:
+                webhook = DiscordWebhook(url=self.webhook_url, content=msg)
+                webhook.execute()
+                time.sleep(1)
 
     def flush(self):
         self.terminal.flush()
